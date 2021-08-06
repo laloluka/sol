@@ -1,0 +1,113 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{%extends 'information_system/Main.html'%}
+
+{%load static%}
+
+{%block content%}
+    <h3>Transaction Details</h3>
+
+<script>
+    $(document).ready(function()
+    {
+        var memberdeposit;
+        var totaldeposit=0;
+        $('td:nth-child(3)').each(function()
+        {
+            memberdeposit=$(this).html();
+            totaldeposit +=parseInt(memberdeposit);
+            $('#totdeposit').text(totaldeposit);
+        });
+    });
+</script>
+
+
+<div class="row">
+
+    <div class="col-md">
+		<div class="card card-body">
+            	<h5>Repayment of {{members.FirstName}}</h5>
+			 <p> <a class="btn btn-sm btn-info" href="{% url 'export' %}">Export Loan CSV</a> </p>
+			<table class="table table-md">
+				<tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+					<th>Amount Deposit</th>
+                    <th>Date Deposit</th>
+
+
+
+
+				</tr>
+
+				{% for depo in deposit %}
+
+				<tr>
+
+                    <td>{{depo.Member.FirstName}}</td>
+                    <td>{{depo.Member.LastName}}</td>
+                    <td>{{depo.Amount_deposit}}</td>
+                    <td>{{depo.Date_deposit}}</td>
+
+
+
+
+
+				</tr>
+				{% endfor %}
+
+			</table>
+           <h3> Total of SOL CU Member Deposit: {{total_depos.mytotal}}</h3>
+
+
+		</div>
+
+
+
+	<br>
+		<br>
+<div class="row">
+
+    <div class="col-md">
+		<div class="card card-body">
+
+            	<h5>Loan of {{members.FirstName}}</h5>
+			 <p> <a class="btn btn-sm btn-info" href="{% url 'export' %}">Export Loan CSV</a> </p>
+			<table class="table table-md">
+
+				<tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+					<th>Amount Deposit</th>
+                    <th>Date Deposit</th>
+
+
+
+
+				</tr>
+
+				{% for depo in deposit %}
+
+				<tr>
+
+                    <td>{{depo.Member.FirstName}}</td>
+                    <td>{{depo.Member.LastName}}</td>
+                    <td>{{depo.Amount_deposit}}</td>
+                    <td>{{depo.Date_deposit}}</td>
+
+
+
+
+
+				</tr>
+				{% endfor %}
+
+			</table>
+           <h3> Total of SOL CU Member Deposit: {{total_depos.mytotal}}</h3>
+
+
+		</div>
+
+
+	</div>
+{%endblock content%}

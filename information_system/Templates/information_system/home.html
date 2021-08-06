@@ -1,0 +1,160 @@
+
+
+{%extends 'information_system/Main.html'%}
+
+{%load static%}
+
+
+
+{% block content %}
+
+
+
+<br>
+<br>
+
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-white bg-success mb-3" style="max-width: 25rem;">
+  <div class="card-header">Total Loan(Monthly)</div>
+  <div class="card-body">
+    <h1 class="card-title">${{total_loan.myloan}}</h1>
+
+  </div>
+</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-white bg-success mb-3" style="max-width: 25rem;">
+  <div class="card-header">Total Repayment(Monthly)</div>
+  <div class="card-body">
+    <h1 class="card-title">${{total_dep.mytotal}}</h1>
+
+  </div>
+</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-white bg-success mb-3" style="max-width: 25rem;">
+  <div class="card-header">Total Member(Annual)</div>
+  <div class="card-body">
+    <h1 class="card-title">{{total_members}}</h1>
+
+  </div>
+</div>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
+	<div class="col-md-9" center-block">
+<!--	<div class="col-md-12">-->
+
+		<h5>Charts</h5>
+
+	<div id="container"></div>
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+  <script>
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Transactions in Monthly basis'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May','June','Jul','Aug','Sept','Oct','Nov','Dec']
+        },
+        series: [{
+            name: 'Loan',
+            data: [107, 31, 635, 203, 22,66,24,46,45,34,86,32]
+        }, {
+            name: 'Repayment',
+            data: [133, 156, 947, 408, 6,107, 31, 635, 203, 22]
+        }, {
+            name: 'Members',
+            data: [1052, 954, 4250, 740, 38,22,66,24,46,45,34,86]
+        }]
+    });
+  </script>
+
+	</div>
+</div>
+<hr>
+
+<div class="row">
+
+	<div class="col-md-12 ">
+<div class="table-responsive">
+		     <table class="table table-sm">
+            <thead class="thead-dark">
+
+             <tr>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'export' %}">Export Loan CSV</a> </td>
+
+              </tr>
+        <th></th>
+      	<th scope="col">Acc Number</th>
+      	<th scope="col">First Name</th>
+      	<th scope="col">Last Name</th>
+      	<th scope="col">Address</th>
+      	<th scope="col">Email</th>
+      	<th scope="col">Date_start</th>
+       	<th scope="col">Is_active</th>
+       	<th scope="col">First_Fund</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+
+
+
+    </tr>
+
+  </thead>
+  <tbody>
+
+
+
+     {%for member in member_list%}
+                    <tr>
+
+                        <td><a class="btn btn-sm btn-info"	href="{% url 'members' member.id %}">View</a></td>
+                        <td>{{member.AccountNumber}}</td>
+                        <td>{{member.FirstName}}</td>
+                        <td>{{member.LastName}}</td>
+                        <td>{{member.Address}}</td>
+                        <td>{{member.Email}}</td>
+                        <td>{{member.Date_start}}</td>
+                        <td>{{member.Is_active}}</td>
+                        <td>{{member.Base_fund}}</td>
+
+<!--                        <td><a class="btn btn-sm btn-info" href="#">Update</a> </td>-->
+                        <td><a class="btn btn-sm btn-info"	href="{% url 'update' member.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="#">Delete</a> </td>
+
+
+
+
+                    </tr>
+    {%endfor%}
+
+  </tbody>
+</table>
+
+	</div>
+
+</div>
+
+</div>
+<hr>
+
+
+
+
+{% endblock %}

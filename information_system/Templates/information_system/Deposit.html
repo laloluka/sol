@@ -1,0 +1,56 @@
+{%extends 'information_system/Main.html'%}
+
+{%load static%}
+
+{%block content%}
+    <h3>Current Deposit List</h3>
+<hr>
+<!--<h3>Total Current Deposit: ${{total_dep.mytotal}}</h3>-->
+<!--<h3>Maximum Deposit: ${{maximum_dep.mymax}}</h3>-->
+<div>
+      <table class="table">
+  <thead class="thead-dark">
+
+   <tr>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'export' %}">Export Deposit CSV</a> </td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'export' %}">Export Deposit PDF</a> </td>
+                     <td><a class="btn btn-sm btn-info" href="{% url 'export' %}">Export Deposit CSV</a> </td>
+
+    </tr>
+
+    <tr>
+
+      <th scope="col">Member</th>
+       <th scope="col">Amount</th>
+       <th scope="col">Date </th>
+        <th scope="col">Update </th>
+        <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+
+     {%for deposit in deposit_list%}
+                    <tr>
+
+                        <td>{{deposit.Member}}</td>
+                        <td>{{deposit.Amount_deposit}}</td>
+                        <td>{{deposit.Date_deposit}}</td>
+                       <td><a class="btn btn-sm btn-info"	href="{% url 'update' deposit.id %}">Update</a></td>
+                         <td><a class="btn btn-sm btn-danger" href="#">Delete</a> </td>
+
+
+
+
+
+                    </tr>
+    {%endfor%}
+
+  </tbody>
+</table>
+
+</div>
+
+
+{%endblock content%}
