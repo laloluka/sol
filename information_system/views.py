@@ -12,8 +12,6 @@ from .forms import MemberForm
 
 
 def home(request):
-
-
     total_dep = Deposits.objects.aggregate(mytotal=Sum('Amount_deposit'))
     total_loan = Loans.objects.aggregate(myloan=Sum('Amount_loan'))
     maximum_dep = Deposits.objects.aggregate(mymax=Avg('Amount_deposit'))
@@ -69,9 +67,6 @@ def update(request, pk):
         if form.is_valid():
             form.save()
             return redirect('/')
-    # if form.is_valid():
-    #     form.save()
-    #     return redirect('/')
     context = {'form':form}
     return render(request,'information_system/memberform.html',context)
 
@@ -88,13 +83,6 @@ def deposit(request):
     ##To get total deposit
     total_dep = Deposits.objects.aggregate(mytotal=Sum('Amount_deposit'))
     maximum_dep=Deposits.objects.aggregate(mymax=Avg('Amount_deposit'))
-    # # Book.objects.all().aggregate(Avg('price'))
-    # averaged=Deposits.objects.aggregate(Avg('Amount_deposit'))
-    # print(averaged.values)
-    #
-    # Total_amount_deposit = Deposits.objects.all().aggregate(Sum('Amount_deposit'))
-    # # Product.objects.all().aggregate(Sum('price'))
-    # total_deposit=deposit_list.count()
-    # myaverage=Deposits.objects.aggregate(avg=Avg('Amount_deposit'))
+
     context={'total_dep':total_dep,'maximum_dep':maximum_dep,'deposit_list':deposit_list}
     return render(request,'information_system/Deposit.html',context)
